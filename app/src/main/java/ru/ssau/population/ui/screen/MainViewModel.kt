@@ -1,23 +1,28 @@
 package ru.ssau.population.ui.screen
 
 import androidx.lifecycle.ViewModel
+import ru.ssau.population.Defaults
 import ru.ssau.population.domain.PopulationsLifecycleProcessor
 import ru.ssau.population.model.LifecycleInit
+import ru.ssau.population.model.PopulationState
 
 class MainViewModel : ViewModel() {
     lateinit var processor: PopulationsLifecycleProcessor // todo init this shit
 
     private var processorInit = LifecycleInit(
-        0.0,
-        // todo etc.
-    ) // todo default value
+        populationsStates = listOf(
+            Defaults.predatorPopulationState,
+            Defaults.producerPopulationState,
+            Defaults.apexPredatorPopulationState,
+        ),
+    )
 
     fun setProcessorInit(
         a: Double,
     ) {
+        val populationsStates: List<PopulationState> = listOf() // начальные состояния для
         processorInit = LifecycleInit(
-            a = a,
-            // todo etc.
+            populationsStates = populationsStates,
         )
     }
 
