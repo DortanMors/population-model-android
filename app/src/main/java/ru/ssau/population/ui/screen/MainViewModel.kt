@@ -1,4 +1,4 @@
-package ru.ssau.population.ui.main
+package ru.ssau.population.ui.screen
 
 import androidx.lifecycle.ViewModel
 
