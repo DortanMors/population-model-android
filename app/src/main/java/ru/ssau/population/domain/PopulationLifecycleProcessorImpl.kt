@@ -1,5 +1,6 @@
 package ru.ssau.population.domain
 
+import kotlin.math.floor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -11,9 +12,9 @@ import kotlinx.coroutines.launch
 import ru.ssau.population.Defaults
 import ru.ssau.population.model.ChartState
 import ru.ssau.population.model.LifecycleInit
-import ru.ssau.population.model.PopulationStats
 import ru.ssau.population.model.PopulationState
 import ru.ssau.population.model.PopulationStateImpl
+import ru.ssau.population.model.PopulationStats
 
 class PopulationLifecycleProcessorImpl : PopulationsLifecycleProcessor {
 
@@ -118,8 +119,27 @@ class PopulationLifecycleProcessorImpl : PopulationsLifecycleProcessor {
     private fun calculateNextCounts(
         currentPopulationsStates: List<PopulationState>,
     ): List<Long> {
-        currentPopulationsStates[0].population
-        val result = listOf<Long>(0) // todo реализовать расчёт следующей численности популяции
+        val result = currentPopulationsStates.map { currentPopulation ->
+            val reproduceCount = currentPopulation.population.selfReproductionFactor * currentPopulation.count
+            val battleLosses = // внутри популяции не бьёмся
+                currentPopulationsStates.sumOf { otherPopulation ->
+                    if (otherPopulation != currentPopulation) {
+                        otherPopulation.population.attackFactor / currentPopulation.population.defenseFactor * currentPopulation.count * otherPopulation.count
+                    } else {
+                        0.0 // внутри популяции не бьёмся
+                    }
+                }
+            val battleIncrease = // внутри популяции не бьёмся
+                currentPopulationsStates.sumOf { otherPopulation ->
+                    if (otherPopulation != currentPopulation) {
+                        (otherPopulation.population.nutrition / currentPopulation.population.hungerFactor) * (currentPopulation.population.attackFactor / otherPopulation.population.defenseFactor) * currentPopulation.count * otherPopulation.count
+                    } else {
+                        0.0 // внутри популяции не бьёмся
+                    }
+                }
+            val growth = reproduceCount + battleIncrease - battleLosses
+            floor(currentPopulation.count + growth * timeStep).toLong() // отбрасываем дробную часть численности, так как полтора землекопа до двух не округляются
+        }
         return result
     }
 }
