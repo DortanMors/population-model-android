@@ -11,24 +11,33 @@ object Defaults {
 
     val producerPopulationState: PopulationState = PopulationStateImpl(
         PopulationParameters(
-            aCoefficient = 0.0001,
-            bCoefficient = 0.0001,
+            selfReproductionFactor = 0.0001,
+            attackFactor = 0.0001,
+            defenseFactor = 0.0001,
+            nutrition = 0.0001,
+            hungerFactor = 0.0001,
         ),
         count = 1000,
     )
 
     val predatorPopulationState: PopulationState = PopulationStateImpl(
         PopulationParameters(
-            aCoefficient = 0.0001,
-            bCoefficient = 0.0001,
+            selfReproductionFactor = 0.0001,
+            attackFactor = 0.0001,
+            defenseFactor = 0.0001,
+            nutrition = 0.0001,
+            hungerFactor = 0.0001,
         ),
         count = 1000,
     )
 
     val apexPredatorPopulationState: PopulationState = PopulationStateImpl(
         PopulationParameters(
-            aCoefficient = 0.0001,
-            bCoefficient = 0.0001,
+            selfReproductionFactor = 0.0001,
+            attackFactor = 0.0001,
+            defenseFactor = 0.0001,
+            nutrition = 0.0001,
+            hungerFactor = 0.0001,
         ),
         count = 1000,
     )

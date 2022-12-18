@@ -1,6 +1,9 @@
 package ru.ssau.population.model
 
 data class PopulationParameters(
-    override val aCoefficient: Double,
-    override val bCoefficient: Double,
+    override val selfReproductionFactor: Double,
+    override val attackFactor: Double,
+    override val defenseFactor: Double,
+    override val nutrition: Double,
+    override val hungerFactor: Double,
 ) : PopulationStats
