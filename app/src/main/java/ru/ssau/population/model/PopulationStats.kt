@@ -1,6 +1,6 @@
 package ru.ssau.population.model
 
-interface Population {
+interface PopulationStats {
     val aCoefficient: Double
     val bCoefficient: Double
 }

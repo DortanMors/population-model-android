@@ -11,13 +11,13 @@ import kotlinx.coroutines.launch
 import ru.ssau.population.Defaults
 import ru.ssau.population.model.ChartState
 import ru.ssau.population.model.LifecycleInit
-import ru.ssau.population.model.Population
+import ru.ssau.population.model.PopulationStats
 import ru.ssau.population.model.PopulationState
 import ru.ssau.population.model.PopulationStateImpl
 
 class PopulationLifecycleProcessorImpl : PopulationsLifecycleProcessor {
 
-    private var populations: List<Population> = listOf()
+    private var populations: List<PopulationStats> = listOf()
 
     /**
      * Время между шагами расчёта в днях
