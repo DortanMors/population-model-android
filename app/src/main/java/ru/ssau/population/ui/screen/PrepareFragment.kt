@@ -5,10 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModel
 import ru.ssau.population.R
 import ru.ssau.population.databinding.FragmentPrepareBinding
-import ru.ssau.population.model.PopulationParameters
+import ru.ssau.population.model.*
 import java.lang.Exception
 
 class PrepareFragment : Fragment() {
@@ -29,7 +31,18 @@ class PrepareFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.producer.alpha
         binding.buttonNext.setOnClickListener {
-            val populations: List<PopulationParameters> = listOf(binding.producer, binding.predator, binding.apexPredator).map {
+            val populations: List<PopulationState> = listOf(binding.producer, binding.predator, binding.apexPredator).map {
+
+                val count: Long
+                try {
+                    count = it.count.text.toString().toLong()
+                } catch (exception: Exception) {
+                    it.countLayout.error = getString(R.string.error_value)
+                    Toast.makeText(requireContext(), R.string.error_toast, Toast.LENGTH_LONG).show()
+
+                    return@setOnClickListener
+                }
+
                 val (alpha, beta, t, omega, i) = listOf(
                     it.alphaLayout to it.alpha,
                     it.betaLayout to it.beta,
@@ -46,11 +59,12 @@ class PrepareFragment : Fragment() {
                     }
                     value
                 }
-                PopulationParameters(alpha, beta, t, omega, i)
-            }
 
+                val parameters = PopulationParameters(alpha, beta, t, omega, i)
+                PopulationStateImpl(parameters, count)
+            }
+            viewModel.setProcessorInit(populations)
         }
-        // get/set parameters view
     }
 
     companion object {

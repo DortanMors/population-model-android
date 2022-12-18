@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">population-model-android</string>
+    <string name="count">Count = </string>
     <string name="alpha">α = </string>
     <string name="beta">β = </string>
     <string name="t">t = </string>
@@ -8,4 +9,5 @@
     <string name="animal">animal: </string>
     <string name="next">NEXT</string>
     <string name="error_value">Enter values must be double</string>
+    <string name="error_toast">Check red marks!</string>
 </resources>
