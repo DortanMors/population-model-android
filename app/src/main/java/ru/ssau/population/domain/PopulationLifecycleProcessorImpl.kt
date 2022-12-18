@@ -48,7 +48,7 @@ class PopulationLifecycleProcessorImpl : PopulationsLifecycleProcessor {
     /**
      * Область действия корутины расчёта
      */
-    private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
     /**
      * Текущая работа по непрерывному вычислению

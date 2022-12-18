@@ -6,6 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
+import kotlinx.coroutines.launch
 import ru.ssau.population.databinding.FragmentChartBinding
 
 class ChartFragment : Fragment() {
@@ -24,7 +29,26 @@ class ChartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // get view model`s flow and draw chart observing it
+        lifecycleScope.launchWhenResumed {
+            lifecycleScope.launch {
+                viewModel.populationsStates.collect { chartState ->
+                    val curves = chartState.y.map { curveData ->
+                        LineDataSet(
+                            chartState.t.zip(curveData).map { (t, y) -> Entry(t.toFloat(), y.toFloat()) },
+                            "Population", // todo use real name
+                        )
+                    }
+                    binding.chart.data = LineData(curves)
+                }
+            }
+        }
+        binding.startPause.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                viewModel.start()
+            } else {
+                viewModel.pause()
+            }
+        }
     }
 
     companion object {

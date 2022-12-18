@@ -1,21 +1,20 @@
 package ru.ssau.population.ui.screen
 
 import androidx.lifecycle.ViewModel
-import ru.ssau.population.Defaults
+import kotlinx.coroutines.flow.Flow
+import ru.ssau.population.domain.PopulationLifecycleProcessorImpl
 import ru.ssau.population.domain.PopulationsLifecycleProcessor
+import ru.ssau.population.model.ChartState
 import ru.ssau.population.model.LifecycleInit
 import ru.ssau.population.model.PopulationState
 
 class MainViewModel : ViewModel() {
-    lateinit var processor: PopulationsLifecycleProcessor // todo init this shit
+    private val processor: PopulationsLifecycleProcessor = PopulationLifecycleProcessorImpl()
 
-    private var processorInit = LifecycleInit(
-        populationsStates = listOf(
-            Defaults.predatorPopulationState,
-            Defaults.producerPopulationState,
-            Defaults.apexPredatorPopulationState,
-        ),
-    )
+    private var processorInit: LifecycleInit? = null
+
+    val populationsStates: Flow<ChartState>
+        get() = processor.chartStateFlow
 
     fun setProcessorInit(
         a: Double,
@@ -26,14 +25,9 @@ class MainViewModel : ViewModel() {
         )
     }
 
-    fun getProcessorInit(): LifecycleInit = processorInit // todo not pretty, use flow
-
     fun start() {
         processor.start(processorInit)
-    }
-
-    fun resume() {
-        processor.start()
+        processorInit = null
     }
 
     fun pause() {
