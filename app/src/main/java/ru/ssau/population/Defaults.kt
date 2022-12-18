@@ -9,36 +9,42 @@ object Defaults {
     const val delay: Long = 100  // задержка отрисовки в миллисекундах
     const val maxPointsAtAxis: Long = 100 // максимальное количество точек на оси в одно время
 
-    val producerPopulationState: PopulationState = PopulationStateImpl(
+    private val producerPopulationState: PopulationState = PopulationStateImpl(
         PopulationParameters(
-            selfReproductionFactor = 0.0001,
-            attackFactor = 0.0001,
-            defenseFactor = 0.0001,
-            nutrition = 0.0001,
-            hungerFactor = 0.0001,
+            selfReproductionFactor = 0.5,
+            attackFactor = 0.0,
+            defenseFactor = 10.0,
+            nutrition = 1.0,
+            hungerFactor = 0.0,
         ),
-        count = 1000,
+        count = 100,
     )
 
-    val predatorPopulationState: PopulationState = PopulationStateImpl(
+    private val predatorPopulationState: PopulationState = PopulationStateImpl(
         PopulationParameters(
-            selfReproductionFactor = 0.0001,
-            attackFactor = 0.0001,
+            selfReproductionFactor = -0.1,
+            attackFactor = 0.1,
             defenseFactor = 0.0001,
-            nutrition = 0.0001,
-            hungerFactor = 0.0001,
+            nutrition = 3.0,
+            hungerFactor = 3.0,
         ),
-        count = 1000,
+        count = 10,
     )
 
-    val apexPredatorPopulationState: PopulationState = PopulationStateImpl(
+    private val apexPredatorPopulationState: PopulationState = PopulationStateImpl(
         PopulationParameters(
-            selfReproductionFactor = 0.0001,
-            attackFactor = 0.0001,
-            defenseFactor = 0.0001,
-            nutrition = 0.0001,
-            hungerFactor = 0.0001,
+            selfReproductionFactor = -0.1,
+            attackFactor = 0.1,
+            defenseFactor = 10000.0,
+            nutrition = 1.0,
+            hungerFactor = 5.0,
         ),
-        count = 1000,
+        count = 10,
+    )
+
+    val populations = listOf(
+        producerPopulationState,
+        predatorPopulationState,
+        apexPredatorPopulationState,
     )
 }

@@ -11,6 +11,7 @@ import ru.ssau.population.R
 import ru.ssau.population.databinding.FragmentPrepareBinding
 import ru.ssau.population.model.*
 import java.lang.Exception
+import ru.ssau.population.Defaults
 
 class PrepareFragment : Fragment() {
 
@@ -28,7 +29,14 @@ class PrepareFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.producer.alpha
+        listOf(binding.producer, binding.predator, binding.apexPredator).forEachIndexed { index, populationCard ->
+            populationCard.count.setText(Defaults.populations[index].count.toString())
+            populationCard.alpha.setText(Defaults.populations[index].population.selfReproductionFactor.toString())
+            populationCard.beta.setText(Defaults.populations[index].population.attackFactor.toString())
+            populationCard.t.setText(Defaults.populations[index].population.defenseFactor.toString())
+            populationCard.omega.setText(Defaults.populations[index].population.nutrition.toString())
+            populationCard.i.setText(Defaults.populations[index].population.hungerFactor.toString())
+        }
         binding.buttonNext.setOnClickListener {
             val populations: List<PopulationState> = listOf(binding.producer, binding.predator, binding.apexPredator).map {
 
@@ -70,7 +78,7 @@ class PrepareFragment : Fragment() {
     private fun navigateToChartFragment() {
         parentFragmentManager.beginTransaction()
             .replace(R.id.container, ChartFragment.newInstance())
-            .commitNow()
+            .commit()
     }
 
     companion object {
