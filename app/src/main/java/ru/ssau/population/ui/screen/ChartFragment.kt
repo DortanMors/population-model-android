@@ -52,6 +52,6 @@ class ChartFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance() = PrepareFragment()
+        fun newInstance() = ChartFragment()
     }
 }
