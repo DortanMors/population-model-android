@@ -16,9 +16,11 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/animal"
             app:autoSizeTextType="uniform"
             />
 
@@ -28,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="20dp"
-            android:hint="α = "
+            android:hint="@string/alpha"
             app:boxBackgroundColor="#78F4DC"
             app:boxCornerRadiusBottomEnd="10dp"
             app:boxCornerRadiusBottomStart="10dp"
@@ -43,7 +45,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/alpha"
                 android:layout_width="match_parent"
-                android:layout_height="100dp" />
+                android:layout_height="100dp"
+                tools:ignore="SpeakableTextPresentCheck"
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -53,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="20dp"
-            android:hint="β = "
+            android:hint="@string/beta"
             app:boxBackgroundColor="#78F4DC"
             app:boxCornerRadiusBottomEnd="10dp"
             app:boxCornerRadiusBottomStart="10dp"
@@ -69,7 +73,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/beta"
                 android:layout_width="match_parent"
-                android:layout_height="100dp" />
+                android:layout_height="100dp"
+                tools:ignore="SpeakableTextPresentCheck"
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -79,7 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="20dp"
-            android:hint="t = "
+            android:hint="@string/t"
             app:boxBackgroundColor="#78F4DC"
             app:boxCornerRadiusBottomEnd="10dp"
             app:boxCornerRadiusBottomStart="10dp"
@@ -94,7 +100,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/t"
                 android:layout_width="match_parent"
-                android:layout_height="100dp" />
+                android:layout_height="100dp"
+                tools:ignore="SpeakableTextPresentCheck"
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -104,7 +112,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="20dp"
-            android:hint="ω = "
+            android:hint="@string/omega"
             app:boxBackgroundColor="#78F4DC"
             app:boxCornerRadiusBottomEnd="10dp"
             app:boxCornerRadiusBottomStart="10dp"
@@ -119,7 +127,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/omega"
                 android:layout_width="match_parent"
-                android:layout_height="100dp" />
+                android:layout_height="100dp"
+                tools:ignore="SpeakableTextPresentCheck"
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -129,7 +139,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="20dp"
-            android:hint="i = "
+            android:hint="@string/i"
             app:boxBackgroundColor="#78F4DC"
             app:boxCornerRadiusBottomEnd="10dp"
             app:boxCornerRadiusBottomStart="10dp"
@@ -144,7 +154,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/i"
                 android:layout_width="match_parent"
-                android:layout_height="100dp" />
+                android:layout_height="100dp"
+                tools:ignore="SpeakableTextPresentCheck"
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 

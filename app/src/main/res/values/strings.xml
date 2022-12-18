@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">population-model-android</string>
+    <string name="alpha">α = </string>
+    <string name="beta">β = </string>
+    <string name="t">t = </string>
+    <string name="omega">ω = </string>
+    <string name="i">i = </string>
+    <string name="animal">animal: </string>
 </resources>
