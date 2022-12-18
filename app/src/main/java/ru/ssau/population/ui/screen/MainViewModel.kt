@@ -17,9 +17,8 @@ class MainViewModel : ViewModel() {
         get() = processor.chartStateFlow
 
     fun setProcessorInit(
-        a: Double,
+        populationsStates: List<PopulationState>,
     ) {
-        val populationsStates: List<PopulationState> = listOf() // начальные состояния для
         processorInit = LifecycleInit(
             populationsStates = populationsStates,
         )
