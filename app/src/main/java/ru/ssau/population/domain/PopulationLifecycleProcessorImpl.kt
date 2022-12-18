@@ -104,11 +104,13 @@ class PopulationLifecycleProcessorImpl : PopulationsLifecycleProcessor {
             }
             add(nextT)
         }
-        val newtCountsValues = currentState.y.toMutableList().apply {
-            if (size >= maxPointsAtAxis) {
-                removeFirst()
-            }
-            add(nextTimeCounts)
+        val newtCountsValues = currentState.y.mapIndexed { index, curve ->
+            curve.toMutableList().apply {
+                if (size >= maxPointsAtAxis) {
+                    removeFirst()
+                }
+                add(nextTimeCounts[index])
+            }.toList()
         }
         return ChartState(
             t = newTimes,
