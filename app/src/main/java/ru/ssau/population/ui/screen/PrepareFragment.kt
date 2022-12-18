@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModel
 import ru.ssau.population.R
 import ru.ssau.population.databinding.FragmentPrepareBinding
 import ru.ssau.population.model.*
@@ -64,7 +63,14 @@ class PrepareFragment : Fragment() {
                 PopulationStateImpl(parameters, count)
             }
             viewModel.setProcessorInit(populations)
+            navigateToChartFragment()
         }
+    }
+
+    private fun navigateToChartFragment() {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.container, ChartFragment.newInstance())
+            .commitNow()
     }
 
     companion object {
