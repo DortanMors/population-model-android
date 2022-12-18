@@ -6,4 +6,6 @@
     <string name="omega">ω = </string>
     <string name="i">i = </string>
     <string name="animal">animal: </string>
+    <string name="next">NEXT</string>
+    <string name="error_value">Enter values must be double</string>
 </resources>
