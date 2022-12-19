@@ -140,7 +140,8 @@ class PopulationLifecycleProcessorImpl : PopulationsLifecycleProcessor {
                     }
                 }
             val growth = reproduceCount + battleIncrease - battleLosses
-            floor(currentPopulation.count + growth * timeStep).toLong() // отбрасываем дробную часть численности, так как полтора землекопа до двух не округляются
+            return@map floor(currentPopulation.count + growth * timeStep).toLong() // отбрасываем дробную часть численности, так как полтора землекопа до двух не округляются
+                .takeIf { it > 0 } ?: 0 // если число стало отрицательным, то считаем, что популяция вымерла
         }
         return result
     }
