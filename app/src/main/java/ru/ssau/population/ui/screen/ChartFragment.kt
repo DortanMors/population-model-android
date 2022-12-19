@@ -32,13 +32,14 @@ class ChartFragment : Fragment() {
         lifecycleScope.launchWhenResumed {
             lifecycleScope.launch {
                 viewModel.populationsStates.collect { chartState ->
-                    val curves = chartState.y.map { curveData ->
+                    val curves = chartState.y.mapIndexed { index, curveData ->
                         LineDataSet(
                             chartState.t.zip(curveData).map { (t, y) -> Entry(t.toFloat(), y.toFloat()) },
-                            "Population", // todo use real name
+                            "Population$index", // todo use real name
                         )
                     }
                     binding.chart.data = LineData(curves)
+                    binding.chart.invalidate()
                 }
             }
         }

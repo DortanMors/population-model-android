@@ -9,5 +9,7 @@
     <string name="animal">animal: </string>
     <string name="next">NEXT</string>
     <string name="error_value">Enter values must be double</string>
+    <string name="error_value_int">Enter values must be intege</string>
     <string name="error_toast">Check red marks!</string>
+    <string name="max_points">Max plot points =</string>
 </resources>

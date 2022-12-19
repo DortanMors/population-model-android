@@ -16,6 +16,20 @@
         tools:context=".ui.screen.PrepareFragment"
         >
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/max_points_layout"
+            android:hint="@string/max_points"
+            style="@style/CoefficientLayout"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/max_points"
+                style="@style/CoefficientEditText"
+                tools:ignore="SpeakableTextPresentCheck"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
         <include layout="@layout/item_population"
             android:id="@+id/producer"
             tools:visibility="gone"

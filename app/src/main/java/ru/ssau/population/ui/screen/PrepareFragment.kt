@@ -29,6 +29,7 @@ class PrepareFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.maxPoints.setText(Defaults.maxPointsAtAxis.toString())
         listOf(binding.producer, binding.predator, binding.apexPredator).forEachIndexed { index, populationCard ->
             populationCard.count.setText(Defaults.populations[index].count.toString())
             populationCard.alpha.setText(Defaults.populations[index].population.selfReproductionFactor.toString())
@@ -38,13 +39,23 @@ class PrepareFragment : Fragment() {
             populationCard.i.setText(Defaults.populations[index].population.hungerFactor.toString())
         }
         binding.buttonNext.setOnClickListener {
+            val maxPoints: Int =
+                try {
+                    binding.maxPoints.text.toString().toInt()
+                } catch (exception: Exception) {
+                    binding.maxPointsLayout.error = getString(R.string.error_value_int)
+                    Toast.makeText(requireContext(), R.string.error_toast, Toast.LENGTH_LONG).show()
+                    return@setOnClickListener
+                }
+            Defaults.maxPointsAtAxis = maxPoints
+
             val populations: List<PopulationState> = listOf(binding.producer, binding.predator, binding.apexPredator).map {
 
                 val count: Long
                 try {
                     count = it.count.text.toString().toLong()
                 } catch (exception: Exception) {
-                    it.countLayout.error = getString(R.string.error_value)
+                    it.countLayout.error = getString(R.string.error_value_int)
                     Toast.makeText(requireContext(), R.string.error_toast, Toast.LENGTH_LONG).show()
 
                     return@setOnClickListener
