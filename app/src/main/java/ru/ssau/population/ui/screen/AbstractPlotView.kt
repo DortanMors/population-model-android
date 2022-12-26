@@ -18,7 +18,10 @@ class AbstractPlotView @JvmOverloads constructor(
     defStyleAttr: Int = 0,
 ): FrameLayout(context, attributeSet, defStyleAttr) {
 
-    private val binding: ViewMicroPlotBinding = ViewMicroPlotBinding.inflate(LayoutInflater.from(context), this, true)
+    private val binding: ViewMicroPlotBinding = ViewMicroPlotBinding.inflate(LayoutInflater.from(context), this, true).apply {
+        lineChart.setDrawGridBackground(false)
+        lineChart.setDrawMarkers(false)
+    }
     private val populationsColors = arrayOf(
         Color.GREEN,
         Color.MAGENTA,
