@@ -5,7 +5,9 @@ import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
-import io.github.farshidroohi.ChartEntity
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
 import ru.ssau.population.databinding.ViewMicroPlotBinding
 import ru.ssau.population.model.ChartState
 
@@ -17,7 +19,7 @@ class AbstractPlotView @JvmOverloads constructor(
 ): FrameLayout(context, attributeSet, defStyleAttr) {
 
     private val binding: ViewMicroPlotBinding = ViewMicroPlotBinding.inflate(LayoutInflater.from(context), this, true)
-    private val colors = arrayOf(
+    private val populationsColors = arrayOf(
         Color.GREEN,
         Color.MAGENTA,
         Color.RED,
@@ -27,11 +29,17 @@ class AbstractPlotView @JvmOverloads constructor(
         if (state.t.isEmpty()) {
             return
         }
-        binding.lineChart.setList(
-            state.y.mapIndexed { index, populationCurveValues ->
-                ChartEntity(colors[index % colors.size], populationCurveValues.toFloatArray())
+        val curves = state.y.mapIndexed { curveIndex, curveData ->
+            LineDataSet(
+                state.t.mapIndexed { timeIndex, time ->
+                    Entry(time, curveData[timeIndex])
+                },
+                "Population$curveIndex",
+            ).apply {
+                color = populationsColors[curveIndex % colors.size]
             }
-        )
+        }
+        binding.lineChart.data = LineData(curves)
+        binding.lineChart.invalidate()
     }
-
 }

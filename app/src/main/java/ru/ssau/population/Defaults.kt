@@ -6,7 +6,7 @@ import ru.ssau.population.model.PopulationStateImpl
 
 object Defaults {
     const val timeStep: Float = 0.1F // время между шагами расчёта в днях
-    const val delay: Long = 1  // задержка отрисовки в миллисекундах
+    const val delay: Long = 0  // задержка отрисовки в миллисекундах
     var maxPointsAtAxis: Int = 50000 // максимальное количество точек на оси в одно время
 
     private val producerPopulationState: PopulationState = PopulationStateImpl(

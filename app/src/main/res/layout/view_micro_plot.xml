@@ -1,20 +1,13 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <io.github.farshidroohi.LineChart
+    <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/line_chart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:chart_bg_color="#FF2B4A83"
-        app:chart_line_color="#32FFFFFF"
-        app:chart_line_size="4dp"
-        app:chart_padding_bottom="20dp"
-        app:chart_padding_left="20dp"
-        app:chart_padding_right="20dp"
-        app:chart_padding_top="20dp"
         />
 
 </FrameLayout>
