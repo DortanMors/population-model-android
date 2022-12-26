@@ -45,6 +45,13 @@ class PrepareFragment : Fragment() {
         binding.predator.omega.setText(Defaults.populations[1].population.nutrition.toString())
         binding.predator.i.setText(Defaults.populations[1].population.hungerFactor.toString())
 
+        binding.apexPredator.count.setText(Defaults.populations[2].count.toString())
+        binding.apexPredator.alpha.setText(Defaults.populations[2].population.selfReproductionFactor.toString())
+        binding.apexPredator.beta.setText(Defaults.populations[2].population.attackFactor.toString())
+        binding.apexPredator.t.setText(Defaults.populations[2].population.defenseFactor.toString())
+        binding.apexPredator.omega.setText(Defaults.populations[2].population.nutrition.toString())
+        binding.apexPredator.i.setText(Defaults.populations[2].population.hungerFactor.toString())
+
         binding.buttonNext.setOnClickListener {
             val maxPoints: Int =
                 try {
@@ -56,7 +63,7 @@ class PrepareFragment : Fragment() {
                 }
             Defaults.maxPointsAtAxis = maxPoints
 
-            val populations: List<PopulationState> = listOf(binding.producer, binding.predator).map {
+            val populations: List<PopulationState> = listOf(binding.producer, binding.predator, binding.apexPredator).mapNotNull {
 
                 val count: Double
                 try {
@@ -66,6 +73,10 @@ class PrepareFragment : Fragment() {
                     Toast.makeText(requireContext(), R.string.error_toast, Toast.LENGTH_LONG).show()
 
                     return@setOnClickListener
+                }
+
+                if (count < 1.0) {
+                    return@mapNotNull null
                 }
 
                 val (alpha, beta, t, omega, i) = listOf(
@@ -88,7 +99,7 @@ class PrepareFragment : Fragment() {
                 val parameters = PopulationParameters(alpha, beta, t, omega, i)
                 PopulationStateImpl(parameters, count.toFloat())
             }
-            viewModel.setProcessorInit(listOf(populations[0], populations[1]))
+            viewModel.setProcessorInit(populations)
             navigateToChartFragment()
         }
     }
