@@ -125,7 +125,7 @@ class PopulationLifecycleProcessorImpl : PopulationsLifecycleProcessor {
             val battleLosses = // внутри популяции не бьёмся
                 currentPopulationsStates.sumOf { otherPopulation ->
                     if (otherPopulation != currentPopulation) {
-                        otherPopulation.population.attackFactor * currentPopulation.count * otherPopulation.count
+                        otherPopulation.population.attackFactor / currentPopulation.population.defenseFactor * currentPopulation.count * otherPopulation.count
                     } else {
                         0.0 // внутри популяции не бьёмся
                     }
@@ -133,7 +133,7 @@ class PopulationLifecycleProcessorImpl : PopulationsLifecycleProcessor {
             val battleIncrease = // внутри популяции не бьёмся
                 currentPopulationsStates.sumOf { otherPopulation ->
                     if (otherPopulation != currentPopulation) {
-                        currentPopulation.population.attackFactor * currentPopulation.count * otherPopulation.count
+                        (otherPopulation.population.nutrition / currentPopulation.population.hungerFactor) * (currentPopulation.population.attackFactor / otherPopulation.population.defenseFactor) * currentPopulation.count * otherPopulation.count
                     } else {
                         0.0 // внутри популяции не бьёмся
                     }
