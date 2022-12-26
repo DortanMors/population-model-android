@@ -5,41 +5,41 @@ import ru.ssau.population.model.PopulationState
 import ru.ssau.population.model.PopulationStateImpl
 
 object Defaults {
-    const val timeStep: Long = 1 // время между шагами расчёта в днях
-    const val delay: Long = 1000  // задержка отрисовки в миллисекундах
-    var maxPointsAtAxis: Int = 50 // максимальное количество точек на оси в одно время
+    const val timeStep: Double = 0.1 // время между шагами расчёта в днях
+    const val delay: Long = 1  // задержка отрисовки в миллисекундах
+    var maxPointsAtAxis: Int = 50000 // максимальное количество точек на оси в одно время
 
     private val producerPopulationState: PopulationState = PopulationStateImpl(
         PopulationParameters(
-            selfReproductionFactor = 0.5,
+            selfReproductionFactor = 0.01,
             attackFactor = 0.0,
-            defenseFactor = 10.0,
+            defenseFactor = 1.0,
             nutrition = 1.0,
             hungerFactor = 1.0,
         ),
-        count = 100,
+        count = 100.0,
     )
 
     private val predatorPopulationState: PopulationState = PopulationStateImpl(
         PopulationParameters(
-            selfReproductionFactor = -0.1,
-            attackFactor = 0.05,
-            defenseFactor = 5.0,
-            nutrition = 3.0,
-            hungerFactor = 3.0,
+            selfReproductionFactor = -0.01,
+            attackFactor = 0.0001,
+            defenseFactor = 1.0,
+            nutrition = 1.0,
+            hungerFactor = 1.0,
         ),
-        count = 10,
+        count = 200.0,
     )
 
     private val apexPredatorPopulationState: PopulationState = PopulationStateImpl(
         PopulationParameters(
-            selfReproductionFactor = -0.2,
+            selfReproductionFactor = -0.0,
             attackFactor = 0.01,
             defenseFactor = 10000.0,
             nutrition = 1.0,
             hungerFactor = 5.0,
         ),
-        count = 10,
+        count = 0.0,
     )
 
     val populations = listOf(

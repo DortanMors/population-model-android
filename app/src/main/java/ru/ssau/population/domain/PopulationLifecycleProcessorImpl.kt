@@ -23,7 +23,7 @@ class PopulationLifecycleProcessorImpl : PopulationsLifecycleProcessor {
     /**
      * Время между шагами расчёта в днях
      */
-    private val timeStep: Long = Defaults.timeStep
+    private val timeStep: Double = Defaults.timeStep
 
     /**
      * Задержка отрисовки в миллисекундах
@@ -67,7 +67,7 @@ class PopulationLifecycleProcessorImpl : PopulationsLifecycleProcessor {
                 val counts = initialChartState.populationsStates.map { listOf(it.count) }
                 _chartStateFlow.emit(
                     ChartState(
-                        t = listOf(0), // начальный момент времени (нулевой)
+                        t = listOf(0.0), // начальный момент времени (нулевой)
                         y = counts,
                     )
                 )
@@ -100,14 +100,14 @@ class PopulationLifecycleProcessorImpl : PopulationsLifecycleProcessor {
         // список моментов времени
         val newTimes = currentState.t.toMutableList().apply {
             if (size >= maxPointsAtAxis) {
-                removeFirst()
+                removeRange(0, size / 2)
             }
             add(nextT)
         }
         val newtCountsValues = currentState.y.mapIndexed { index, curve ->
             curve.toMutableList().apply {
                 if (size >= maxPointsAtAxis) {
-                    removeFirst()
+                    removeRange(0, size / 2)
                 }
                 add(nextTimeCounts[index])
             }.toList()
@@ -120,13 +120,13 @@ class PopulationLifecycleProcessorImpl : PopulationsLifecycleProcessor {
 
     private fun calculateNextCounts(
         currentPopulationsStates: List<PopulationState>,
-    ): List<Long> {
+    ): List<Double> {
         val result = currentPopulationsStates.map { currentPopulation ->
             val reproduceCount = currentPopulation.population.selfReproductionFactor * currentPopulation.count
             val battleLosses = // внутри популяции не бьёмся
                 currentPopulationsStates.sumOf { otherPopulation ->
                     if (otherPopulation != currentPopulation) {
-                        otherPopulation.population.attackFactor / currentPopulation.population.defenseFactor * currentPopulation.count * otherPopulation.count
+                        otherPopulation.population.attackFactor * currentPopulation.count * otherPopulation.count
                     } else {
                         0.0 // внутри популяции не бьёмся
                     }
@@ -134,15 +134,21 @@ class PopulationLifecycleProcessorImpl : PopulationsLifecycleProcessor {
             val battleIncrease = // внутри популяции не бьёмся
                 currentPopulationsStates.sumOf { otherPopulation ->
                     if (otherPopulation != currentPopulation) {
-                        (otherPopulation.population.nutrition / currentPopulation.population.hungerFactor) * (currentPopulation.population.attackFactor / otherPopulation.population.defenseFactor) * currentPopulation.count * otherPopulation.count
+                        currentPopulation.population.attackFactor * currentPopulation.count * otherPopulation.count
                     } else {
                         0.0 // внутри популяции не бьёмся
                     }
                 }
             val growth = reproduceCount + battleIncrease - battleLosses
-            return@map floor(currentPopulation.count + growth * timeStep).toLong() // отбрасываем дробную часть численности, так как полтора землекопа до двух не округляются
-                .takeIf { it > 0 } ?: 0 // если число стало отрицательным, то считаем, что популяция вымерла
+            return@map (currentPopulation.count + growth * timeStep) // отбрасываем дробную часть численности, так как полтора землекопа до двух не округляются
+                .takeIf { it > 0 } ?: 0.0 // если число стало отрицательным, то считаем, что популяция вымерла
         }
         return result
+    }
+}
+
+fun MutableList<Double>.removeRange(fromIndex: Int, toIndex: Int) {
+    for (i in fromIndex until toIndex) {
+        removeAt(fromIndex)
     }
 }

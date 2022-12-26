@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">population-model-android</string>
     <string name="count">Count = </string>
-    <string name="alpha">α = </string>
-    <string name="beta">β = </string>
-    <string name="t">t = </string>
-    <string name="omega">ω = </string>
-    <string name="i">i = </string>
-    <string name="animal">animal: </string>
+    <string name="alpha">α (self-reproducing) = </string>
+    <string name="beta">β (attack) = </string>
+    <string name="t">t (defense) = </string>
+    <string name="omega">ω (nutrition) = </string>
+    <string name="i">i (hunger) = </string>
+    <string name="animal">population: </string>
     <string name="next">NEXT</string>
     <string name="error_value">Enter values must be double</string>
     <string name="error_value_int">Enter values must be integer</string>

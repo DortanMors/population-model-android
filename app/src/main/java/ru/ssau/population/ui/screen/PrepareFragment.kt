@@ -30,14 +30,21 @@ class PrepareFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.maxPoints.setText(Defaults.maxPointsAtAxis.toString())
-        listOf(binding.producer, binding.predator, binding.apexPredator).forEachIndexed { index, populationCard ->
-            populationCard.count.setText(Defaults.populations[index].count.toString())
-            populationCard.alpha.setText(Defaults.populations[index].population.selfReproductionFactor.toString())
-            populationCard.beta.setText(Defaults.populations[index].population.attackFactor.toString())
-            populationCard.t.setText(Defaults.populations[index].population.defenseFactor.toString())
-            populationCard.omega.setText(Defaults.populations[index].population.nutrition.toString())
-            populationCard.i.setText(Defaults.populations[index].population.hungerFactor.toString())
-        }
+
+        binding.producer.count.setText(Defaults.populations[0].count.toString())
+        binding.producer.alpha.setText(Defaults.populations[0].population.selfReproductionFactor.toString())
+        binding.producer.beta.setText(Defaults.populations[0].population.attackFactor.toString())
+        binding.producer.t.setText(Defaults.populations[0].population.defenseFactor.toString())
+        binding.producer.omega.setText(Defaults.populations[0].population.nutrition.toString())
+        binding.producer.i.setText(Defaults.populations[0].population.hungerFactor.toString())
+
+        binding.predator.count.setText(Defaults.populations[1].count.toString())
+        binding.predator.alpha.setText(Defaults.populations[1].population.selfReproductionFactor.toString())
+        binding.predator.beta.setText(Defaults.populations[1].population.attackFactor.toString())
+        binding.predator.t.setText(Defaults.populations[1].population.defenseFactor.toString())
+        binding.predator.omega.setText(Defaults.populations[1].population.nutrition.toString())
+        binding.predator.i.setText(Defaults.populations[1].population.hungerFactor.toString())
+
         binding.buttonNext.setOnClickListener {
             val maxPoints: Int =
                 try {
@@ -49,13 +56,13 @@ class PrepareFragment : Fragment() {
                 }
             Defaults.maxPointsAtAxis = maxPoints
 
-            val populations: List<PopulationState> = listOf(binding.producer, binding.predator, binding.apexPredator).map {
+            val populations: List<PopulationState> = listOf(binding.producer, binding.predator).map {
 
-                val count: Long
+                val count: Double
                 try {
-                    count = it.count.text.toString().toLong()
+                    count = it.count.text.toString().toDouble()
                 } catch (exception: Exception) {
-                    it.countLayout.error = getString(R.string.error_value_int)
+                    it.countLayout.error = getString(R.string.error_value)
                     Toast.makeText(requireContext(), R.string.error_toast, Toast.LENGTH_LONG).show()
 
                     return@setOnClickListener
@@ -81,7 +88,7 @@ class PrepareFragment : Fragment() {
                 val parameters = PopulationParameters(alpha, beta, t, omega, i)
                 PopulationStateImpl(parameters, count)
             }
-            viewModel.setProcessorInit(populations)
+            viewModel.setProcessorInit(listOf(populations[0], populations[1]))
             navigateToChartFragment()
         }
     }

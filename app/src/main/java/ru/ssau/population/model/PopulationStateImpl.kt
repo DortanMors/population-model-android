@@ -2,5 +2,5 @@ package ru.ssau.population.model
 
 data class PopulationStateImpl(
     override val population: PopulationStats,
-    override val count: Long,
+    override val count: Double,
 ) : PopulationState
