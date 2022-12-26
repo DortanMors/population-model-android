@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="CoefficientEditText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+
     <style name="CoefficientLayout">
 
         <item name="android:layout_width">match_parent</item>
@@ -16,5 +18,10 @@
         <item name="hintTextColor">#150909</item>
         <item name="boxCornerRadiusTopEnd">10dp</item>
         <item name="boxCornerRadiusTopStart">10dp</item>
+    </style>
+
+    <style name="Widget.Theme.Populationmodelandroid.MyView" parent="">
+        <item name="android:background">@color/gray_400</item>
+        <item name="exampleColor">@color/light_blue_400</item>
     </style>
 </resources>

@@ -1,6 +1,5 @@
 package ru.ssau.population.domain
 
-import kotlin.math.floor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -23,7 +22,7 @@ class PopulationLifecycleProcessorImpl : PopulationsLifecycleProcessor {
     /**
      * Время между шагами расчёта в днях
      */
-    private val timeStep: Double = Defaults.timeStep
+    private val timeStep: Float = Defaults.timeStep
 
     /**
      * Задержка отрисовки в миллисекундах
@@ -67,7 +66,7 @@ class PopulationLifecycleProcessorImpl : PopulationsLifecycleProcessor {
                 val counts = initialChartState.populationsStates.map { listOf(it.count) }
                 _chartStateFlow.emit(
                     ChartState(
-                        t = listOf(0.0), // начальный момент времени (нулевой)
+                        t = listOf(0.0f), // начальный момент времени (нулевой)
                         y = counts,
                     )
                 )
@@ -120,7 +119,7 @@ class PopulationLifecycleProcessorImpl : PopulationsLifecycleProcessor {
 
     private fun calculateNextCounts(
         currentPopulationsStates: List<PopulationState>,
-    ): List<Double> {
+    ): List<Float> {
         val result = currentPopulationsStates.map { currentPopulation ->
             val reproduceCount = currentPopulation.population.selfReproductionFactor * currentPopulation.count
             val battleLosses = // внутри популяции не бьёмся
@@ -140,14 +139,14 @@ class PopulationLifecycleProcessorImpl : PopulationsLifecycleProcessor {
                     }
                 }
             val growth = reproduceCount + battleIncrease - battleLosses
-            return@map (currentPopulation.count + growth * timeStep) // отбрасываем дробную часть численности, так как полтора землекопа до двух не округляются
-                .takeIf { it > 0 } ?: 0.0 // если число стало отрицательным, то считаем, что популяция вымерла
+            return@map (currentPopulation.count + growth * timeStep).toFloat() // отбрасываем дробную часть численности, так как полтора землекопа до двух не округляются
+                .takeIf { it > 0 } ?: 0.0F // если число стало отрицательным, то считаем, что популяция вымерла
         }
         return result
     }
 }
 
-fun MutableList<Double>.removeRange(fromIndex: Int, toIndex: Int) {
+fun MutableList<Float>.removeRange(fromIndex: Int, toIndex: Int) {
     for (i in fromIndex until toIndex) {
         removeAt(fromIndex)
     }

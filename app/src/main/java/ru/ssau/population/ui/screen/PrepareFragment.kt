@@ -86,7 +86,7 @@ class PrepareFragment : Fragment() {
                 }
 
                 val parameters = PopulationParameters(alpha, beta, t, omega, i)
-                PopulationStateImpl(parameters, count)
+                PopulationStateImpl(parameters, count.toFloat())
             }
             viewModel.setProcessorInit(listOf(populations[0], populations[1]))
             navigateToChartFragment()

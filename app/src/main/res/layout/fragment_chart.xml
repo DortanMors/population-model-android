@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     >
 
-    <com.github.mikephil.charting.charts.LineChart
+    <ru.ssau.population.ui.screen.AbstractPlotView
         android:id="@+id/chart"
         android:layout_width="0dp"
         android:layout_height="0dp"

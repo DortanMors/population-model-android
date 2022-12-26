@@ -5,7 +5,7 @@ import ru.ssau.population.model.PopulationState
 import ru.ssau.population.model.PopulationStateImpl
 
 object Defaults {
-    const val timeStep: Double = 0.1 // время между шагами расчёта в днях
+    const val timeStep: Float = 0.1F // время между шагами расчёта в днях
     const val delay: Long = 1  // задержка отрисовки в миллисекундах
     var maxPointsAtAxis: Int = 50000 // максимальное количество точек на оси в одно время
 
@@ -17,7 +17,7 @@ object Defaults {
             nutrition = 1.0,
             hungerFactor = 1.0,
         ),
-        count = 100.0,
+        count = 100.0f,
     )
 
     private val predatorPopulationState: PopulationState = PopulationStateImpl(
@@ -28,7 +28,7 @@ object Defaults {
             nutrition = 1.0,
             hungerFactor = 1.0,
         ),
-        count = 200.0,
+        count = 200.0f,
     )
 
     private val apexPredatorPopulationState: PopulationState = PopulationStateImpl(
@@ -39,7 +39,7 @@ object Defaults {
             nutrition = 1.0,
             hungerFactor = 5.0,
         ),
-        count = 0.0,
+        count = 0.0f,
     )
 
     val populations = listOf(

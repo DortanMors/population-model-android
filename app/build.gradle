@@ -49,6 +49,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
 
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation 'io.github.farshidroohi:lineGraph:1.0.2'
 }
 
 static def generateVersionCode() {
